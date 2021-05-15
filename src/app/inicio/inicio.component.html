@@ -1,0 +1,105 @@
+<div class="container-fluid">
+
+  <!--cabeçalho-->
+
+  <div class="card bg-dark text-white border border-light mt-3">
+    
+    <img class="card-img " src="https://i.imgur.com/Gz6PD9o.png/100px180/#55595c:#373a3c/text:Card image"   alt="Imagem do card" height="400" width="300">
+    <div class="card-img-overlay">
+
+  <!-- Botão para acionar modal -->
+  <button type="button" class="btn btn-warning mt-3 ml-3 font-weight-bold" data-toggle="modal"
+    data-target="#modalExemplo">
+    Faça sua postagem
+  </button>
+  <!--<h1 class="card-title">Fartura Hub</h1>
+      <p class="lead my-3">Fome por Ajudar.</p>-->
+
+     
+
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cancelar">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card card-body">
+            <!-- Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger. -->
+
+            <div class="form-group">
+              <label for="Titulo">Título</label>
+              <input [(ngModel)]='postagem.titulo' type="text" class="form-control" id="Titulo"
+                placeholder="Digite o título">
+            </div>
+            <div class="form-group">
+              <label for="descricao">Texto</label>
+              <textarea [(ngModel)]='postagem.descricao' class="form-control" name="descricao" id="descricao"
+                rows="3"></textarea>
+            </div>
+            <label for="contato">Contato</label>
+            <input [(ngModel)]='postagem.contato' type="text" class="form-control" id="contato"
+              placeholder="Digite aqui um endereço de contato">
+            <div class="form-group">
+              <label for="texto">Escolha um tema ou <a data-dismiss="modal" routerLink="/tema">cadastre um novo </a>:
+              </label>
+              <select name="tema" id="tema" class="form-control" [(ngModel)]='idTema' (change)='findByIdTema()'>
+                <option *ngFor='let tema of listaTemas' value="{{tema.id}}">
+                  {{tema.descricao}}</option>
+              </select>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" (click)='publicar()' data-dismiss="modal">Publicar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- ESTILIZAÇÃO -->
+<!-- ESTILIZAÇÃO -->
+<!-- ESTILIZAÇÃO -->
+
+  <div class="row d-flex justify-content-center mt-5 mb-5">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control" id="titulo" placeholder="Digite um titulo de postagem para pesquisar" [(ngModel)]='tituloPost' (keyup)= 'findByTituloPostagem()'>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card mb-3 mt-3 shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="card-body" *ngFor='let item of listaPostagens | orderBy: key: reverse'>
+      <h5 class="card-title">{{item.titulo}}</h5>
+      <h6 class="card-text">{{item.tema.descricao}}</h6>
+      <hr>
+      <small class="text-muted mb-3">Conteúdo:</small>      
+      <p class="card-text">{{item.descricao}}</p> <!-- {{item.tema.descricao}} -->
+      <h6 class="card-text">{{item.contato}}</h6>
+      <hr>
+      <p class="card-text"><small class="text-muted">{{item.data | date: 'dd/MM/yyyy'}} às {{item.data | date:
+          'HH:mm'}}</small></p>
+      <p class="card-text"><small class="text-muted">por: {{item.usuario.nomeCompleto}}</small></p> 
+      <hr>
+      <button class="btn btn-success mr-3 mt-2 mb-3" [routerLink]="['/postagem-edit', item.id]">Editar</button>
+      <button class="btn btn-danger mt-2 mb-3" [routerLink]="['/postagem-delete', item.id]">Apagar</button> 
+              <div class="container">
+          <h1 class="display-4"></h1>
+          <p class="lead"></p>
+        </div>
+          <hr>
+    </div>
+  </div>
+
+</div>
